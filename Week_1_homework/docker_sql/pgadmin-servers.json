@@ -1,0 +1,15 @@
+{
+    "Servers": {
+      "1": {
+        "Name": "localhost-server",
+        "Group": "Servers",
+        "Host": "pg-database",
+        "Port": 5432,
+        "Username": "root",
+        "Password": "root",
+        "SSLMode": "prefer",
+        "MaintenanceDB": "postgres"
+      }
+    }
+  }
+  

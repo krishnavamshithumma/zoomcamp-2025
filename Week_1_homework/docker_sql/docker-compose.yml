@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:13
+    container_name: pg-database
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ny_taxi_2019
+    volumes:
+      - ./data/green_trip_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - pg-network-homework
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - ./pgadmin_data:/var/lib/pgadmin
+      - ./pgadmin-servers.json:/pgadmin4/servers.json
+    ports:
+      - "8080:80"
+    networks:
+      - pg-network-homework
+
+  # ingest:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: upload_data
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - pg-network-homework
+  #   command: >
+  #     --user=root
+  #     --password=root
+  #     --host=pg-database
+  #     --port=5432
+  #     --db=ny_taxi_2019
+  #     --table_name=green_tripdata_2019
+  #     --url=https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz
+  #     --additional_url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv"
+
+networks:
+  pg-network-homework:
+    driver: bridge

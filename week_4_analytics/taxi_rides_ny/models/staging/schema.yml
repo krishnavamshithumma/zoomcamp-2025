@@ -12,7 +12,7 @@ sources:
 
 models:
   - name: stg_green_tripdata
-    description: ""
+    description: "Model for green trip data staging"
     columns:
       - name: tripid
         data_type: string
